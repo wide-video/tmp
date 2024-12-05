@@ -9,41 +9,32 @@ const root = __dirname;
 const nextYear = new Date();
 nextYear.setFullYear(nextYear.getFullYear() + 1);
 
-const appExpires = [
+const headers = [];
+const addHeader = (rule, values) => headers.push({rule, values});
+
+addHeader("/*", ["Service-Worker-Allowed: /"]);
+
+for(const type of ["app", "pwa"]) {
+	addHeader(`/${type}/*`,
+		["Cross-Origin-Embedder-Policy: require-corp",
+		"Cross-Origin-Opener-Policy: same-origin",
+		"Cross-Origin-Resource-Policy: cross-origin",
+		'Link: <https://wide.video/app/1.6.14-5/>; rel="canonical"']);
+
 	// `no-transform` disables recompressing from br to gzip by Cloudflare, but also disables analytics injection
 	// https://developers.cloudflare.com/cache/concepts/cache-control/
 	// https://developers.cloudflare.com/images/polish/
 	// https://developers.cloudflare.com/web-analytics/faq/#my-website-is-proxied-through-cloudflare-but-web-analytics-automatic-setup-is-not-working
-	`Cache-Control: public, max-age=${60*60*24*365}, s-maxage=${60*60*24*365}, immutable, no-transform`,
-	`Last-Modified: ${new Date().toUTCString()}`,
-	`Expires: ${nextYear.toUTCString()}`];
+	addHeader(`/${type}/:version/*`,
+		[`Cache-Control: public, max-age=${60*60*24*365}, s-maxage=${60*60*24*365}, immutable, no-transform`,
+		`Last-Modified: ${new Date().toUTCString()}`,
+		`Expires: ${nextYear.toUTCString()}`]);
 
-let headerRulesCount = 1;
-let headers = `/*
-	Service-Worker-Allowed: /\n\n`;
+	// this is index file
+	addHeader(`/${type}/:version/`, ["Content-Encoding: br"])
 
-for(const type of ["app", "pwa"]) {
-	headerRulesCount += 5;
-	headers += `/${type}/*
-	Cross-Origin-Embedder-Policy: require-corp
-	Cross-Origin-Opener-Policy: same-origin
-	Cross-Origin-Resource-Policy: cross-origin
-	Link: <https://wide.video/app/1.6.14-4/>; rel="canonical"
-
-/${type}/:version/*
-	${appExpires.join("\n\t")}
-
-/${type}/:version/*.css
-	Content-Encoding: br
-
-/${type}/:version/*.html
-	Content-Encoding: br
-
-/${type}/:version/*.js
-	Content-Encoding: br
-	
-/${type}/:version/
-	Content-Encoding: br\n\n`;
+	for(const extension of ["css", "html", "js"])
+		addHeader(`/${type}/:version/*.${extension}`, ["Content-Encoding: br"]);
 }
 
 function handleIndexFiles(dir) {
@@ -83,16 +74,18 @@ handleAppFiles(path.join(root, "app"));
 // dynamic redirects (using *) and these with :splat-s to go last
 const redirects = [
 	"/favicon.ico /image/favicon.ico 200",
-	`/app /app/1.6.14-4/ 307`,
-	`/app/ /app/1.6.14-4/ 307`,
-	`/pwa /pwa/1.6.14-4/ 307`,
-	`/pwa/ /pwa/1.6.14-4/ 307`,
+	`/app /app/1.6.14-5/ 307`,
+	`/app/ /app/1.6.14-5/ 307`,
+	`/pwa /pwa/1.6.14-5/ 307`,
+	`/pwa/ /pwa/1.6.14-5/ 307`,
 	"/pwa/* /app/:splat 200"];
 
+const redirectsString = redirects.join("\n");
 console.log(`creating _redirects file with ${redirects.length} rules.`);
-console.log(redirects.join("\n"));
-fs.writeFileSync("_redirects", redirects.join("\n"), 'utf8');
+console.log(redirectsString);
+fs.writeFileSync("_redirects", redirectsString, 'utf8');
 
-console.log(`creating _headers file with ${headerRulesCount} rules.`);
-console.log(headers);
-fs.writeFileSync("_headers", headers, 'utf8');
+const headersString = headers.map(({rule, values}) => `${rule}\n\t${values.join("\n\t")}`).join("\n\n");
+console.log(`creating _headers file with ${headers.length} rules.`);
+console.log(headersString);
+fs.writeFileSync("_headers", headersString, 'utf8');
