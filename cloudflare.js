@@ -6,12 +6,12 @@
 const fs = require('fs');
 const path = require('path');
 const root = __dirname;
-const nextYear = new Date;
+const nextYear = new Date();
 nextYear.setFullYear(nextYear.getFullYear() + 1)
 
 const appExpires = [
 	"Cache-Control: max-age=31536000",
-	`Expires: ${new Date.toUTCString()}`,
+	`Expires: ${new Date().toUTCString()}`,
 	`Last-Modified: ${nextYear.toUTCString()}`
 ];
 
@@ -25,7 +25,7 @@ for(const type of ["app", "pwa"]) {
 	Cross-Origin-Embedder-Policy: require-corp
 	Cross-Origin-Opener-Policy: same-origin
 	Cross-Origin-Resource-Policy: cross-origin
-	Link: <$APP_VERSION_HREF/>; rel="canonical"
+	Link: <https://wide.video/app/1.6.14/>; rel="canonical"
 
 /${type}/*
 	${appExpires.join("\n\t")}
@@ -80,10 +80,10 @@ handleAppFiles(path.join(root, "app"));
 // dynamic redirects (using *) and these with :splat-s to go last
 const redirects = [
 	"/favicon.ico /image/favicon.ico 200",
-	`/app /app/$APP_VERSION/ 307`,
-	`/app/ /app/$APP_VERSION/ 307`,
-	`/pwa /pwa/$APP_VERSION/ 307`,
-	`/pwa/ /pwa/$APP_VERSION/ 307`,
+	`/app /app/1.6.14/ 307`,
+	`/app/ /app/1.6.14/ 307`,
+	`/pwa /pwa/1.6.14/ 307`,
+	`/pwa/ /pwa/1.6.14/ 307`,
 	"/pwa/* /app/:splat 200"];
 
 console.log(`creating _redirects file with ${redirects.length} rules.`);
