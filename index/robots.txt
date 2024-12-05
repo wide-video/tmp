@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://wide.video/sitemap.xml
