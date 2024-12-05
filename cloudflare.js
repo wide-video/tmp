@@ -8,7 +8,7 @@ const path = require('path');
 const root = __dirname;
 const nextYear = new Date();
 nextYear.setFullYear(nextYear.getFullYear() + 1)
-
+x
 const appExpires = [
 	"Cache-Control: max-age=31536000",
 	`Expires: ${new Date().toUTCString()}`,
