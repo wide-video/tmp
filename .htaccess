@@ -4,7 +4,7 @@ Header set Service-Worker-Allowed "/"
 	Header set Cross-Origin-Embedder-Policy require-corp
 	Header set Cross-Origin-Opener-Policy same-origin
 	Header set Cross-Origin-Resource-Policy cross-origin
-	Header set Link '<https://wide.video/app/1.6.14-5/>; rel="canonical"'
+	Header set Link '<https://wide.video/app/1.6.14-6/>; rel="canonical"'
 </If>
 
 RewriteEngine on
@@ -19,7 +19,7 @@ RewriteRule ^$ /index/index.html [NC,L]
 RewriteRule ^favicon.ico$ /index/image/favicon.ico [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(app|pwa)/?$ /$1/1.6.14-5/ [R=307,L]
+RewriteRule ^(app|pwa)/?$ /$1/1.6.14-6/ [R=307,L]
 
 RewriteRule ^pwa/(.*)$ /app/$1 [L]
 
