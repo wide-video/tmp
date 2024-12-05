@@ -558,7 +558,7 @@ if(!document.location.hostname.endsWith("wv")) {
 	const script2 = document.createElement("script");
 	script2.defer = true;
 	script2.src = "https://static.cloudflareinsights.com/beacon.min.js";
-	script2.dataset["cf-beacon"] = '{"token": "e8089482b26d49b782a549d3e373c237"}';
+	script2.dataset.cfBeacon = '{"token": "e8089482b26d49b782a549d3e373c237"}';
 	document.body.append(script2);
 }
 

@@ -28,7 +28,7 @@ for(const type of ["app", "pwa"]) {
 	Cross-Origin-Embedder-Policy: require-corp
 	Cross-Origin-Opener-Policy: same-origin
 	Cross-Origin-Resource-Policy: cross-origin
-	Link: <https://wide.video/app/1.6.14-2/>; rel="canonical"
+	Link: <https://wide.video/app/1.6.14-3/>; rel="canonical"
 
 /${type}/*
 	${appExpires.join("\n\t")}
@@ -83,10 +83,10 @@ handleAppFiles(path.join(root, "app"));
 // dynamic redirects (using *) and these with :splat-s to go last
 const redirects = [
 	"/favicon.ico /image/favicon.ico 200",
-	`/app /app/1.6.14-2/ 307`,
-	`/app/ /app/1.6.14-2/ 307`,
-	`/pwa /pwa/1.6.14-2/ 307`,
-	`/pwa/ /pwa/1.6.14-2/ 307`,
+	`/app /app/1.6.14-3/ 307`,
+	`/app/ /app/1.6.14-3/ 307`,
+	`/pwa /pwa/1.6.14-3/ 307`,
+	`/pwa/ /pwa/1.6.14-3/ 307`,
 	"/pwa/* /app/:splat 200"];
 
 console.log(`creating _redirects file with ${redirects.length} rules.`);
