@@ -1,0 +1,28 @@
+Header set Service-Worker-Allowed "/"
+
+<If "%{REQUEST_URI} =~ m#^/app#">
+	Header set Cross-Origin-Embedder-Policy require-corp
+	Header set Cross-Origin-Opener-Policy same-origin
+	Header set Cross-Origin-Resource-Policy cross-origin
+	Header set Link '<https://wide.video/app/1.6.14-4/>; rel="canonical"'
+</If>
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$
+RewriteRule (.*) https://%1%{REQUEST_URI} [R=307,L]
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=307,L]
+
+RewriteRule ^$ /index/index.html [NC,L]
+RewriteRule ^favicon.ico$ /index/image/favicon.ico [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(app|pwa)/?$ /$1/1.6.14-4/ [R=307,L]
+
+RewriteRule ^pwa/(.*)$ /app/$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index/$1 [NC,L]
