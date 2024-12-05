@@ -10,6 +10,10 @@ const nextYear = new Date();
 nextYear.setFullYear(nextYear.getFullYear() + 1);
 
 const appExpires = [
+	// `no-transform` disables recompressing from br to gzip by Cloudflare, but also disables analytics injection
+	// https://developers.cloudflare.com/cache/concepts/cache-control/
+	// https://developers.cloudflare.com/images/polish/
+	// https://developers.cloudflare.com/web-analytics/faq/#my-website-is-proxied-through-cloudflare-but-web-analytics-automatic-setup-is-not-working
 	`Cache-Control: public, max-age=${60*60*24*365}, s-maxage=${60*60*24*365}, immutable, no-transform`,
 	`Last-Modified: ${new Date().toUTCString()}`,
 	`Expires: ${nextYear.toUTCString()}`];
@@ -24,7 +28,7 @@ for(const type of ["app", "pwa"]) {
 	Cross-Origin-Embedder-Policy: require-corp
 	Cross-Origin-Opener-Policy: same-origin
 	Cross-Origin-Resource-Policy: cross-origin
-	Link: <https://wide.video/app/1.6.14/>; rel="canonical"
+	Link: <https://wide.video/app/1.6.14-2/>; rel="canonical"
 
 /${type}/*
 	${appExpires.join("\n\t")}
@@ -79,10 +83,10 @@ handleAppFiles(path.join(root, "app"));
 // dynamic redirects (using *) and these with :splat-s to go last
 const redirects = [
 	"/favicon.ico /image/favicon.ico 200",
-	`/app /app/1.6.14/ 307`,
-	`/app/ /app/1.6.14/ 307`,
-	`/pwa /pwa/1.6.14/ 307`,
-	`/pwa/ /pwa/1.6.14/ 307`,
+	`/app /app/1.6.14-2/ 307`,
+	`/app/ /app/1.6.14-2/ 307`,
+	`/pwa /pwa/1.6.14-2/ 307`,
+	`/pwa/ /pwa/1.6.14-2/ 307`,
 	"/pwa/* /app/:splat 200"];
 
 console.log(`creating _redirects file with ${redirects.length} rules.`);
