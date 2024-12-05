@@ -1,0 +1,97 @@
+{
+	"dir": "ltr",
+	"lang": "en",
+	"name": "wide.video",
+	"scope": "/",
+	"display": "standalone",
+	"display_override": ["fullscreen", "minimal-ui"],
+	"start_url": "/pwa",
+	"short_name": "wide.video",
+	"theme_color": "#141414",
+	"description": "Free Online Video Editor",
+	"categories": ["productivity", "utilities"],
+	"orientation": "any",
+	"background_color": "#141414",
+	"icons": [
+		{
+			"src": "/image/manifest-icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/image/manifest-icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/image/manifest-icon-192-maskable.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "maskable"
+		},
+		{
+			"src": "/image/manifest-icon-512-maskable.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	],
+	"screenshots": [
+		{
+			"src": "/image/manifest-screenshot1.jpg",
+			"sizes": "1920x1080",
+			"type": "image/jpeg",
+			"platform": "wide",
+			"label": "Pleasant User Interface",
+			"form_factor": "wide"
+		},
+		{
+			"src": "/image/manifest-screenshot2.jpg",
+			"sizes": "1920x1080",
+			"type": "image/jpeg",
+			"platform": "wide",
+			"label": "Webcam Recorder",
+			"form_factor": "wide"
+		},
+		{
+			"src": "/image/manifest-screenshot3.jpg",
+			"sizes": "1920x1080",
+			"type": "image/jpeg",
+			"platform": "wide",
+			"label": "Export Progress",
+			"form_factor": "wide"
+		},
+		{
+			"src": "/image/manifest-screenshot4.jpg",
+			"sizes": "1920x1080",
+			"type": "image/jpeg",
+			"platform": "wide",
+			"label": "Free Stock Media & Clips",
+			"form_factor": "wide"
+		}
+	],
+	"related_applications": [
+		{
+			"platform": "play",
+			"url": "https://play.google.com/store/apps/details?id=video.wide.twa",
+			"id": "video.wide.twa"
+		},
+		{
+			"platform": "chromeos_play",
+			"id": "video.wide.twa"
+		}
+	],
+	"file_handlers": [
+		{
+			"action": "/pwa",
+			"accept": {
+				"application/*": [".ac3", ".lottie", ".ogg", ".riv", ".srt", ".vtt"],
+				"audio/*": [".aac", ".ac3", ".aiff", ".adts", ".flac", ".m4a", ".mp3", ".mp4", ".oga", ".ogg", ".opus", ".wav", ".weba", ".webm", ".wma"],
+				"image/*": [".apng", ".avif", ".bmp", ".gif", ".jpeg", ".jpg", ".mjpeg", ".png", ".psd", ".svg", ".webp"],
+				"video/*": [".avi", ".flv", ".mkv", ".mov", ".mp4", ".ogg", ".ogv", ".qt", ".webm"]
+			}
+		}
+	]
+}
