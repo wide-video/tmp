@@ -1,3 +1,3 @@
 /*.js
 	Content-Encoding: br
-	Cache-Control: no-transform
+	Cache-Control: public, no-transform
