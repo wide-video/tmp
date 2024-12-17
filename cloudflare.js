@@ -34,7 +34,9 @@ for(const type of ["app", "pwa"]) {
 	for(const extension of ["css", "html", "js"])
 		addHeader(`/${type}/:version/*.${extension}`, ["Content-Encoding: br"]);
 
-	addHeader(`/${type}/:version/popup5`, ["Content-Encoding: br"]);
+	// cloudflare auto redirects .../file.html to .../file
+	// and that breaks Content-Encoding
+	addHeader(`/${type}/:version/popup`, ["Content-Encoding: br"]);
 }
 
 function handleIndexFiles(dir) {
@@ -87,7 +89,9 @@ const redirects = [
 	`/app/ /app/1.6.15/ 307`,
 	`/pwa /pwa/1.6.15/ 307`,
 	`/pwa/ /pwa/1.6.15/ 307`,
-	"/pwa/* /app/:splat 200"];
+	"/pwa/* /app/:splat 200",
+	"/*.html /:splat 200"
+];
 
 const redirectsString = redirects.join("\n");
 console.log(`creating _redirects file with ${redirects.length} rules.`);
