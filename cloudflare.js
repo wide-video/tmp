@@ -61,6 +61,9 @@ function handleAppFiles(dir) {
 			const newFilePath = filePath.replace(/\.br$/, '');
 
 			fs.renameSync(filePath, newFilePath);
+			if(path.extname(newFilePath) === '.html')
+				fs.copyFileSync(newFilePath, `${newFilePath}.html`);
+
 			console.log(`Renamed: ${filePath} -> ${newFilePath}`);
 		}
 	}
