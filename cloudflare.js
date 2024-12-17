@@ -58,17 +58,15 @@ function handleAppFiles(dir) {
 		} 
 		
 		if(stats.isFile() && path.extname(file) === ".br") {
-			const newFilePath = filePath.replace(/\.br$/, '');
+			let newFilePath = filePath.replace(/\.br$/, '');
+
+			// cloudflare auto redirects .../file.html to .../file
+			// potential workaround is to use `.html.html` extension
+			if(newFilePath.endsWith(".html") && !newFilePath.endsWith("index.html"))
+				newFilePath += ".html";
 
 			fs.renameSync(filePath, newFilePath);
 			console.log(`Renamed: ${filePath} -> ${newFilePath}`);
-
-			// cloudflare auto redirects .../file.html to .../file
-			// potential workaround is to use .html.html extension
-			if(newFilePath.endsWith(".html") && !newFilePath.endsWith("index.html")) {
-				fs.renameSync(newFilePath, `${newFilePath}.html`);
-				console.log(`Renamed: ${newFilePath} -> ${newFilePath}.html`);
-			}
 		}
 	}
 }
