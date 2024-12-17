@@ -57,15 +57,16 @@ function handleAppFiles(dir) {
 			continue;
 		} 
 		
-		if(stats.isFile() && path.extname(file) === '.br') {
+		if(stats.isFile() && path.extname(file) === ".br") {
 			const newFilePath = filePath.replace(/\.br$/, '');
 
 			fs.renameSync(filePath, newFilePath);
 			console.log(`Renamed: ${filePath} -> ${newFilePath}`);
 
-			if(path.extname(newFilePath) === '.html') {
-				fs.renameSync(newFilePath, `${newFilePath}.html`);
-				console.log(`Renamed: ${newFilePath} -> ${newFilePath}.html`);
+			// cloudflare auto redirects .../file.html to .../file
+			if(newFilePath.endsWith(".html") && !newFilePath.endsWith("index.html")) {
+				//fs.renameSync(newFilePath, `${newFilePath}.html`);
+				//console.log(`Renamed: ${newFilePath} -> ${newFilePath}.html`);
 			}
 		}
 	}
