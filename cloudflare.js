@@ -33,6 +33,8 @@ for(const type of ["app", "pwa"]) {
 
 	for(const extension of ["css", "html", "js"])
 		addHeader(`/${type}/:version/*.${extension}`, ["Content-Encoding: br"]);
+
+	addHeader(`/${type}/:version/popup5`, ["Content-Encoding: br"]);
 }
 
 function handleIndexFiles(dir) {
