@@ -65,10 +65,12 @@ function handleAppFiles(dir) {
 
 			// cloudflare auto redirects .../file.html to .../file
 			// potential workaround is to use `.html.html` extension
+			/*
 			if(newFilePath.endsWith(".html") && !newFilePath.endsWith("index.html")) {
 				fs.copyFileSync(newFilePath, `${newFilePath}.html`);
 				console.log(`Copied: ${newFilePath} -> ${newFilePath}.html`);
 			}
+				*/
 		}
 	}
 }
