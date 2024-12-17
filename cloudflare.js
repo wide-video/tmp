@@ -64,9 +64,10 @@ function handleAppFiles(dir) {
 			console.log(`Renamed: ${filePath} -> ${newFilePath}`);
 
 			// cloudflare auto redirects .../file.html to .../file
+			// potential workaround is to use .html.html extension
 			if(newFilePath.endsWith(".html") && !newFilePath.endsWith("index.html")) {
-				//fs.renameSync(newFilePath, `${newFilePath}.html`);
-				//console.log(`Renamed: ${newFilePath} -> ${newFilePath}.html`);
+				fs.renameSync(newFilePath, `${newFilePath}.html`);
+				console.log(`Renamed: ${newFilePath} -> ${newFilePath}.html`);
 			}
 		}
 	}
