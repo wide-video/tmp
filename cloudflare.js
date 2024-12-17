@@ -90,7 +90,7 @@ const redirects = [
 	`/pwa /pwa/1.6.15/ 307`,
 	`/pwa/ /pwa/1.6.15/ 307`,
 	"/pwa/* /app/:splat 200",
-	"/*.html /:splat 200"
+	"/*.html /:splat.html 200"
 ];
 
 const redirectsString = redirects.join("\n");
