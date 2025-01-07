@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-let headers = `/*
+const headers = `/*
 	Access-Control-Allow-Headers: *
 	Access-Control-Allow-Origin: *
 	Access-Control-Expose-Headers: *
@@ -10,6 +10,6 @@ let headers = `/*
 	Cross-Origin-Resource-Policy: cross-origin\n\n`;
 
 
-console.log(`creating _headers file with ${headerRulesCount} rules.`);
+console.log(`creating _headers file.`);
 console.log(headers);
 fs.writeFileSync("_headers", headers, 'utf8');
